@@ -1,2 +1,2 @@
-from .spdb_connector import mydb
-from .spdb_connector import pgdb
+from .my_connector import mydb
+from .pg_connector import pgdb
