@@ -15,6 +15,7 @@ class pgdb(object):
 
 	def exec_sql(self, sql):
 		try:
+            sql.replace("'", "").replace('"', "")  # Sanitize inputs.
 			logging.debug("pgdb: exec_sql: SQL statement: \n%s" % sql)
 			self.pgdb_cursor.execute(sql)
 			return self.pgdb_cursor.fetchall()

@@ -15,6 +15,7 @@ class mydb(object):
 
 	def exec_sql(self, sql):
 		try:
+            sql.replace("'", "").replace('"', "")  # Sanitize inputs
 			logging.debug("mydb: exec_sql: SQL statement: \n%s" % sql)
 			self.mydb_cursor.execute(sql)
 			return self.mydb_cursor.fetchall()
