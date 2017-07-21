@@ -20,13 +20,20 @@ class pgdb(object):
 
     def exec_sql(self, sql):
         try:
-            sql.replace("'", "").replace('"', "")  # Sanitize inputs.
+            # Sanitize inputs.
             # TODO more injection protection
+            sql.replace("'", "").replace('"', "")
             if sql[-1] != ';':
                 sql = sql + ';'
             logging.debug("pgdb: exec_sql: SQL statement: \n%s" % sql)
-            self.pgdb_cursor.execute(sql)
-            self.pgdb_cnx.commit()
+            try:
+                self.pgdb_cursor.execute(sql)
+            except psycopg2.Error as e:
+                logging.error("pgdb: exec_sql: Exception executing SQL [%s]. "
+                              "Flushing transaction..." % e)
+            finally:
+                self.pgdb_cnx.commit()  # flush out whatever is going on.
+                logging.error("pgdb: exec_sql: Transaction flushed")
             try:
                 return self.pgdb_cursor.fetchall()
             except psycopg2.ProgrammingError as e:
