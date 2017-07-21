@@ -26,7 +26,11 @@ class pgdb(object):
                 sql = sql + ';'
             logging.debug("pgdb: exec_sql: SQL statement: \n%s" % sql)
             self.pgdb_cursor.execute(sql)
-            return self.pgdb_cursor.fetchall()
+            try:
+                return self.pgdb_cursor.fetchall()
+            except psycopg2.ProgrammingError as e:
+                logging.info('pgdb: exec_sql: No data returned')
+                return True
         except Exception as e:
-            logging.debug("mydb: exec_sql: exception: %s" % e)
+            logging.debug("pgdb: exec_sql: exception: %s" % e)
             return None
