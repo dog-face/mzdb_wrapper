@@ -26,6 +26,7 @@ class pgdb(object):
                 sql = sql + ';'
             logging.debug("pgdb: exec_sql: SQL statement: \n%s" % sql)
             self.pgdb_cursor.execute(sql)
+            self.pgdb_cnx.commit()
             try:
                 return self.pgdb_cursor.fetchall()
             except psycopg2.ProgrammingError as e:
