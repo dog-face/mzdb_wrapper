@@ -18,6 +18,7 @@ class mydb(object):
     def exec_sql(self, sql):
         try:
             sql.replace("'", "").replace('"', "")  # Sanitize inputs
+            #TODO more injection protection
             if sql[-1] != ';':
                 sql = sql + ';'
             logging.debug("mydb: exec_sql: SQL statement: \n%s" % sql)
