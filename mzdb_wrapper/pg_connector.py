@@ -13,7 +13,7 @@ class pgdb(object):
             self.pgdb_cursor = self.pgdb_cnx.cursor()
 
         except Exception as e:
-            logging.error("pgdb: __init__ exception: %s" % e)
+            logging.error("pgdb: __init__ Exception: [%s]" % e)
 
     def close(self):
         self.pgdb_cnx.close()
@@ -25,7 +25,7 @@ class pgdb(object):
             sql.replace("'", "").replace('"', "")
             if sql[-1] != ';':
                 sql = sql + ';'
-            logging.debug("pgdb: exec_sql: SQL statement: \n%s" % sql)
+            logging.debug("pgdb: exec_sql: SQL statement: \n[%s]" % sql)
             try:
                 self.pgdb_cursor.execute(sql)
             except psycopg2.Error as e:
@@ -40,5 +40,5 @@ class pgdb(object):
                 logging.info('pgdb: exec_sql: No data returned')
                 return True
         except Exception as e:
-            logging.debug("pgdb: exec_sql: exception: %s" % e)
+            logging.debug("pgdb: exec_sql: Exception: [%s]" % e)
             return None
