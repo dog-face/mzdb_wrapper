@@ -1,6 +1,9 @@
 import MySQLdb
 import logging
 
+# Inherit logging
+logger = logging.getLogger('root')
+
 
 class mydb(object):
     def __init__(self, user, password, host, database):
@@ -18,7 +21,7 @@ class mydb(object):
     def exec_sql(self, sql):
         try:
             sql.replace("'", "").replace('"', "")  # Sanitize inputs
-            #TODO more injection protection
+            # TODO more injection protection
             if sql[-1] != ';':
                 sql = sql + ';'
             logging.debug("mydb: exec_sql: SQL statement: \n%s" % sql)

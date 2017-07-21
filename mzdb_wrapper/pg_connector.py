@@ -1,6 +1,9 @@
 import psycopg2
 import logging
 
+# Inherit logging
+logger = logging.getLogger('root')
+
 
 class pgdb(object):
     def __init__(self, user, password, host, database):
@@ -18,7 +21,7 @@ class pgdb(object):
     def exec_sql(self, sql):
         try:
             sql.replace("'", "").replace('"', "")  # Sanitize inputs.
-            #TODO more injection protection
+            # TODO more injection protection
             if sql[-1] != ';':
                 sql = sql + ';'
             logging.debug("pgdb: exec_sql: SQL statement: \n%s" % sql)
