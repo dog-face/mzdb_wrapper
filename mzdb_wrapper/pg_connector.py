@@ -22,7 +22,6 @@ class pgdb(object):
         try:
             # Sanitize inputs.
             # TODO more injection protection
-            sql.replace("'", "").replace('"', "")
             if sql[-1] != ';':
                 sql = sql + ';'
             logging.debug("pgdb: exec_sql: SQL statement: \n[%s]" % sql)
