@@ -41,4 +41,4 @@ class pgdb(object):
                 return True
         except Exception as e:
             logging.debug("pgdb: exec_sql: Exception: [%s]" % e)
-            return None
+            raise
