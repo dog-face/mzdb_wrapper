@@ -9,11 +9,12 @@ class pgdb(object):
     def __init__(self, user, password, host, database):
         try:
             self.pgdb_cnx = psycopg2.connect(user=user, password=password,
-                                             host=host, database=database)
+                                             host=host, database=database, connect_timeout=1)
             self.pgdb_cursor = self.pgdb_cnx.cursor()
 
         except Exception as e:
             logging.error("pgdb: __init__ Exception: [%s]" % e)
+            raise
 
     def close(self):
         self.pgdb_cnx.close()
